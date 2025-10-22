@@ -1,254 +1,207 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Besar Sadriu | BulkaHackers</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Besar Sadriu | BulkaHackers — KosAI Terminal</title>
+<meta name="description" content="Besar Sadriu — cybersecurity portfolio with Kali-style KosAI terminal demo.">
 <style>
-  * {margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI", sans-serif;}
-  body {
-    background:#0b0b0f;
-    color:#eee;
-    overflow-x:hidden;
-    scroll-behavior: smooth;
-    position:relative;
-  }
-
-  /* PARTICLES BACKGROUND */
-  canvas#particles {
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:-2;
-  }
-
-  /* NAVBAR */
-  nav {
-    position:sticky;
-    top:0;
-    width:100%;
-    background:rgba(11,11,15,0.9);
-    backdrop-filter:blur(10px);
-    display:flex;
-    justify-content:center;
-    padding:15px 0;
-    z-index:1000;
-  }
-  nav a {
-    margin:0 20px;
-    color:#00ff99;
-    text-decoration:none;
-    font-weight:600;
-    transition:0.3s;
-    text-shadow:0 0 5px #00ff99;
-  }
-  nav a:hover {color:#fff; text-shadow:0 0 15px #00ff99, 0 0 30px #00ff99;}
-
-  /* HERO */
-  .hero {
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:20px;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero h1 {
-    font-size:3rem;
-    color:#00ff99;
-    text-shadow:0 0 15px #00ff99,0 0 30px #00ff99;
-    margin-bottom:20px;
-  }
-  .typing {
-    font-size:1.3rem;
-    color:#ccc;
-    border-right:2px solid #00ff99;
-    white-space:nowrap;
-    overflow:hidden;
-    width:0;
-    animation:typing 6s steps(50,end) infinite alternate, blink 0.7s infinite;
-  }
-  @keyframes typing {from {width:0;} to {width:100%;}}
-  @keyframes blink {50% {border-color:transparent;}}
-  .hero .btn {
-    margin-top:30px;
-    padding:15px 30px;
-    background:#00ff99;
-    color:#0b0b0f;
-    font-weight:700;
-    border-radius:12px;
-    text-decoration:none;
-    box-shadow:0 0 20px #00ff99, 0 0 40px #00ff99;
-    transition:0.3s;
-  }
-  .hero .btn:hover {
-    transform:scale(1.1);
-    box-shadow:0 0 40px #00ff99, 0 0 80px #00ff99;
-  }
-
-  section {max-width:1100px; margin:auto; padding:60px 20px;}
-  p {font-size:1rem; line-height:1.6; color:#bbb; text-align:center;}
-  h2.section-title {text-align:center; font-size:2rem; color:#00ff99; margin-bottom:20px; text-shadow:0 0 10px #00ff99, 0 0 20px #00ff99;}
-
-  /* Grids */
-  .skills, .projects, .testimonials {display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:25px; margin-top:40px;}
-  .card {
-    background:#15151d;
-    border-radius:18px;
-    padding:25px;
-    border:1px solid #00ff99;
-    box-shadow:0 0 15px #00ff99, 0 0 30px rgba(0,255,153,0.2);
-    position:relative;
-    overflow:hidden;
-    transform:translateY(50px);
-    opacity:0;
-    transition:all 0.7s ease-out;
-  }
-  .card.show {transform:translateY(0); opacity:1;}
-  .card h3 {color:#00ff99; margin-bottom:10px; text-shadow:0 0 5px #00ff99;}
-  .card ul, .card p {list-style:none; padding:0; line-height:1.6; color:#ccc; font-size:0.95rem;}
-  .testimonial-card p {font-style:italic;}
-  .testimonial-card span {display:block; margin-top:10px; font-weight:700; color:#00ff99; font-size:0.95rem;}
-
-  /* Card Hover Glow */
-  .card:hover {
-    box-shadow:0 0 30px #00ff99, 0 0 60px #00ff99;
-    transform:translateY(-5px);
-  }
-
-  /* Ripple click */
-  .card.clicked {animation:clickAnim 0.5s forwards;}
-  @keyframes clickAnim {0% {transform:scale(1);} 50% {transform:scale(1.05);} 100% {transform:scale(1);}}
-  .ripple {position:absolute; border-radius:50%; transform:scale(0); animation:rippleAnim 0.6s linear; background:rgba(0,255,153,0.3); pointer-events:none;}
-  @keyframes rippleAnim {to {transform:scale(4); opacity:0;}}
-
-  /* Contact */
-  .contact {text-align:center; margin-top:60px;}
-  .contact h2 {color:#00ff99; margin-bottom:20px; text-shadow:0 0 10px #00ff99;}
-  .contact a {
-    display:inline-block; margin:10px; padding:15px 25px; border-radius:12px; text-decoration:none; font-weight:600; color:#0b0b0f; background:#00ff99;
-    transition:0.3s; box-shadow:0 0 15px #00ff99, 0 0 30px rgba(0,255,153,0.3);
-  }
-  .contact a:hover {transform:scale(1.05); box-shadow:0 0 40px #00ff99, 0 0 80px rgba(0,255,153,0.5);}
+:root{--bg:#05060a;--kali-cyan:#00bfff;--kali-teal:#00ffbf;--muted:#c7dff0;--panel:rgba(6,9,14,0.7);}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,"Segoe UI",system-ui,-apple-system,"Roboto","Noto Sans",sans-serif;}
+html,body{height:100%;}
+body{background:radial-gradient(900px 420px at 10% 12%,rgba(0,191,255,0.03),transparent),radial-gradient(700px 360px at 92% 82%,rgba(0,255,191,0.02),transparent),var(--bg);color:var(--muted);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;}
+canvas{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:-3;}
+nav{position:sticky;top:0;display:flex;justify-content:center;gap:18px;padding:12px;background:linear-gradient(180deg, rgba(6,9,12,0.66), rgba(6,9,12,0.45));backdrop-filter:blur(6px);border-bottom:1px solid rgba(0,191,255,.06);z-index:1200;}
+nav a{color:var(--kali-cyan);text-decoration:none;font-weight:600;padding:6px 10px;border-radius:8px;transition:all .18s;}
+nav a:hover{color:#fff;transform:translateY(-3px);}
+.hero{min-height:76vh;display:flex;align-items:center;justify-content:center;padding:36px;position:relative;z-index:20;}
+.terminal{width:100%;max-width:1100px;border-radius:12px;padding:20px;background:linear-gradient(180deg, rgba(5,8,12,0.7), rgba(10,14,18,0.6));border:1px solid rgba(0,191,255,0.06);display:grid;grid-template-columns:420px 1fr;gap:18px;box-shadow:0 18px 50px rgba(0,0,0,0.6);}
+.left{padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.03));position:relative;overflow:hidden;}
+.badge{position:absolute;left:14px;top:14px;padding:7px 12px;border-radius:999px;background:linear-gradient(90deg,var(--kali-cyan),var(--kali-teal));color:#02111a;font-weight:800;box-shadow:0 10px 30px rgba(0,191,255,0.06);}
+.mask-wrap{height:260px;display:flex;align-items:center;justify-content:center;position:relative;}
+.mask-svg{width:80%;max-width:240px;filter:drop-shadow(0 8px 20px rgba(0,191,255,0.06));}
+.ai-core{margin-top:12px;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:monospace;}
+.ai-ring{width:96px;height:96px;border-radius:999px;display:grid;place-items:center;border:1px solid rgba(0,191,255,0.06);position:relative;animation:spin 10s linear infinite;}
+.ai-ring::before,.ai-ring::after{content:"";position:absolute;border-radius:999px;inset:6px;border:1px dashed rgba(0,255,191,0.05);}
+.ai-dot{width:16px;height:16px;border-radius:999px;background:linear-gradient(180deg,var(--kali-cyan),var(--kali-teal));box-shadow:0 8px 28px rgba(0,191,255,0.1);}
+@keyframes spin{to{transform:rotate(360deg);}}
+.console{padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(0,0,0,0.36), rgba(0,0,0,0.22));min-height:360px;display:flex;flex-direction:column;font-family:"Source Code Pro",monospace;color:#aee9ff;}
+.console-top{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.dot{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.02);}
+.dot.red{background:#ff6b6b;}
+.dot.yellow{background:#ffd36b;}
+.dot.green{background:#57ff9b;}
+.console-output{flex:1;overflow:auto;padding-right:6px;line-height:1.45;font-size:13px;}
+.line{white-space:pre-wrap;opacity:0.95;}
+.prompt{color:#a6f1ff;}
+.cursor{width:8px;height:16px;background:var(--kali-cyan);display:inline-block;margin-left:8px;animation:blink .9s steps(1) infinite;}
+@keyframes blink{50%{opacity:0;}}
+.boot{position:fixed;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,#000,rgba(2,6,10,0.96));z-index:9999;color:var(--kali-cyan);font-family:monospace;}
+.boot-panel{width:92%;max-width:920px;padding:18px;border-radius:10px;background:linear-gradient(180deg,rgba(0,0,0,0.5),rgba(0,0,0,0.3));border:1px solid rgba(0,191,255,0.06);}
+.boot-lines{height:260px;overflow:auto;padding:10px;border-radius:6px;background:rgba(0,0,0,0.12);font-family:monospace;}
+section{max-width:1100px;margin:32px auto;padding:0 18px;}
+.section-title{font-size:18px;text-align:center;color:var(--kali-cyan);margin-bottom:12px;}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));}
+.card{padding:14px;border-radius:8px;background:linear-gradient(180deg, rgba(6,10,15,0.45), rgba(6,8,12,0.25));border:1px solid rgba(0,191,255,0.04);}
+.card h3{color:var(--kali-cyan);margin-bottom:8px;}
+.btn{display:inline-block;padding:9px 14px;border-radius:8px;background:linear-gradient(90deg,var(--kali-cyan),var(--kali-teal));color:#02111a;font-weight:800;text-decoration:none;}
+@media(max-width:880px){.terminal{grid-template-columns:1fr;padding:12px;}.mask-wrap{height:180px;}.console{min-height:300px;}}
 </style>
 </head>
 <body>
+<canvas id="particles" aria-hidden="true"></canvas>
+<canvas id="matrix" aria-hidden="true"></canvas>
 
-<canvas id="particles"></canvas>
-
-<!-- NAVBAR -->
-<nav>
-  <a href="#skills">Skills</a>
-  <a href="#projects">Projects</a>
-  <a href="#testimonials">Testimonials</a>
-  <a href="#contact">Contact</a>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <h1>Besar Sadriu</h1>
-  <div class="typing">Founder of BulkaHackers | Cybersecurity Specialist | Kosovo Warriors Group</div>
-  <a href="#skills" class="btn">💻 Explore My Skills</a>
+<div id="boot" class="boot" role="status" aria-live="polite">
+<div class="boot-panel" role="document" aria-label="Boot sequence">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+<div style="font-weight:800;font-size:16px">KOS-AI CORE — BOOT SEQUENCE v3.7</div>
+<div style="font-size:12px;color:var(--muted)">Kali Emulation • Secure Mode</div>
+</div>
+<div id="boot-lines" class="boot-lines" aria-live="polite"></div>
+<div style="display:flex;justify-content:flex-end;margin-top:10px;color:var(--muted);font-size:13px">Booting…</div>
+</div>
 </div>
 
-<section>
-  <p>
-    I’m <strong>Besar Sadriu</strong>, a 15-year-old cybersecurity enthusiast from <strong>Presheva, Serbia</strong>.  
-    Founder of <strong>BulkaHackers</strong> and member of the <strong>Kosovo Warriors Group</strong>,  
-    I combine the creativity of a hacker with the responsibility of a defender.  
-    My mission: to help organizations secure their digital future.  
-  </p>
+<nav aria-label="Main navigation">
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+<a href="#testimonials">Testimonials</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<main class="hero" role="main">
+<div class="terminal" role="region" aria-label="KosAI Terminal">
+<div class="left" aria-hidden="false">
+<div class="badge" aria-hidden="true">KALI • THEME</div>
+<div class="mask-wrap" aria-hidden="true">
+<svg class="mask-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mask logo">
+<defs>
+<linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#00bfff"/><stop offset="1" stop-color="#00ffbf"/></linearGradient>
+<filter id="glow"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<g filter="url(#glow)"><path fill="none" stroke="url(#g1)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" d="M64,200 Q120,60 256,60 Q392,60 448,200 Q384,300 256,380 Q128,300 64,200 Z"/><path d="M170,190 Q200,150 230,190" stroke="url(#g1)" stroke-width="5" fill="none"/><path d="M282,190 Q312,150 342,190" stroke="url(#g1)" stroke-width="5" fill="none"/><path d="M160,250 Q256,300 352,250" stroke="url(#g1)" stroke-width="5" fill="none"/></g>
+</svg>
+</div>
+<div class="ai-core" aria-hidden="false">
+<div class="ai-ring" aria-hidden="true"><div class="ai-dot" aria-hidden="true"></div></div>
+<div style="font-family:monospace;color:var(--kali-cyan);font-weight:700">KOS-AI v1.13 <span style="margin-left:8px;background:rgba(0,191,255,.05);padding:4px 8px;border-radius:999px;color:var(--kali-teal);font-weight:800">ONLINE</span></div>
+<div style="font-size:12px;color:var(--muted);font-family:monospace">Cyber Intelligence • Threat Simulation</div>
+</div>
+</div>
+
+<section class="console" aria-label="Fake console output">
+<div class="console-top" aria-hidden="true"><div class="dot red" aria-hidden="true"></div><div class="dot yellow" aria-hidden="true"></div><div class="dot green" aria-hidden="true"></div></div>
+<div id="console-output" class="console-output" tabindex="0" role="log" aria-live="polite"></div>
+<div style="display:flex;align-items:center;gap:10px;margin-top:10px">
+<div class="prompt">user@kosai:~$</div>
+<div style="font-family:monospace;color:var(--muted);font-size:13px">Type "help" for commands</div>
+<div class="cursor" aria-hidden="true"></div>
+</div>
+</section>
+</div>
+</main>
+
+<section id="about" aria-label="About">
+<p style="text-align:center;max-width:860px;margin:auto">
+I’m <strong style="color:var(--kali-cyan)">Besar Sadriu</strong>, a 15-year-old cybersecurity enthusiast from <strong style="color:var(--kali-cyan)">Presheva, Serbia</strong>. Founder of <strong style="color:var(--kali-cyan)">BulkaHackers</strong> and member of <strong style="color:var(--kali-cyan)">Kosovo Warriors Group</strong>.
+</p>
 </section>
 
-<section id="skills">
-  <h2 class="section-title">My Skills</h2>
-  <div class="skills">
-    <div class="card"><h3>Cybersecurity</h3><ul><li>✔ Penetration Testing</li><li>✔ Vulnerability Scanning</li><li>✔ Incident Response</li><li>✔ Red Team Simulations</li><li>✔ Network Hardening</li></ul></div>
-    <div class="card"><h3>Programming & Tools</h3><ul><li>✔ Python & Bash Scripting</li><li>✔ Building Security Toolkits</li><li>✔ Automation Scripts</li><li>✔ Web Security Testing</li><li>✔ SQL & Database Security</li></ul></div>
-    <div class="card"><h3>Languages</h3><ul><li>✔ Albanian – Native</li><li>✔ English – Fluent</li></ul></div>
-    <div class="card"><h3>Other Skills</h3><ul><li>✔ OSINT (Intelligence Gathering)</li><li>✔ Cyber Awareness Training</li><li>✔ Ethical Hacking Research</li><li>✔ Cloud Security Basics</li></ul></div>
-  </div>
+<section id="skills" aria-label="Skills">
+<h2 class="section-title">My Skills</h2>
+<div class="grid">
+<article class="card"><h3>Cybersecurity</h3><ul><li>Penetration Testing</li><li>Vulnerability Scanning</li><li>Incident Response</li><li>Red Team Simulations</li></ul></article>
+<article class="card"><h3>Programming & Tools</h3><ul><li>Python & Bash</li><li>Security Tooling</li><li>Automation</li><li>Web Security Testing</li></ul></article>
+<article class="card"><h3>OSINT</h3><ul><li>Intelligence Gathering</li><li>Awareness Training</li></ul></article>
+<article class="card"><h3>Languages</h3><ul><li>Albanian — Native</li><li>English — Fluent</li></ul></article>
+</div>
 </section>
 
-<section id="projects">
-  <h2 class="section-title">Projects & Portfolio</h2>
-  <div class="projects">
-    <div class="card"><h3>SecureScan v1.0</h3><p>A custom vulnerability scanner detecting misconfigurations. Found 50+ critical issues in test environments.</p></div>
-    <div class="card"><h3>KosCyber Toolkit</h3><p>Ethical hacking toolkit including password analyzer, port scanner, log analyzer. Python-based and used in simulations.</p></div>
-    <div class="card"><h3>Red Team Simulation</h3><p>Full attack/defense exercises for mock companies, focusing on phishing, monitoring, and rapid response.</p></div>
-    <div class="card"><h3>OSINT Research Hub</h3><p>Open-source intelligence hub supporting cybersecurity awareness campaigns.</p></div>
-  </div>
+<section id="projects" aria-label="Projects">
+<h2 class="section-title">Projects & Portfolio</h2>
+<div class="grid">
+<div class="card"><h3>SecureScan v1.0</h3><p>Custom vulnerability scanner used in simulations.</p></div>
+<div class="card"><h3>KosCyber Toolkit</h3><p>Password analyzer, port scanner, log analyzer.</p></div>
+<div class="card"><h3>Red Team Simulation</h3><p>Phishing & detection exercises for staff training.</p></div>
+<div class="card"><h3>OSINT Hub</h3><p>Open-source intelligence for awareness campaigns.</p></div>
+</div>
 </section>
 
-<section id="testimonials">
-  <h2 class="section-title">Testimonials / Clients</h2>
-  <div class="testimonials">
-    <div class="card testimonial-card"><p>"Besar conducted a full penetration test for our startup. His insights prevented several potential breaches. Highly recommended!"</p><span>- TechStartup Co.</span></div>
-    <div class="card testimonial-card"><p>"The security toolkit and scanning tools provided by Besar saved us countless hours in vulnerability detection."</p><span>- SecureSoft Ltd.</span></div>
-    <div class="card testimonial-card"><p>"Besar's red team simulation helped our staff recognize phishing attempts and strengthen internal security practices."</p><span>- CyberSafe Organization</span></div>
-    <div class="card testimonial-card"><p>"Professional, trustworthy, and extremely knowledgeable for his age. A cybersecurity talent to watch!"</p><span>- InfoSec Community</span></div>
-  </div>
+<section id="testimonials" aria-label="Testimonials">
+<h2 class="section-title">Testimonials</h2>
+<div class="grid">
+<div class="card"><p>"Besar's penetration test prevented potential breaches."</p><div style="text-align:right;color:var(--kali-cyan);font-weight:700">— TechStartup Co.</div></div>
+<div class="card"><p>"Toolkits saved us hours in detection."</p><div style="text-align:right;color:var(--kali-cyan);font-weight:700">— SecureSoft Ltd.</div></div>
+<div class="card"><p>"Simulations strengthened internal practices."</p><div style="text-align:right;color:var(--kali-cyan);font-weight:700">— CyberSafe Org.</div></div>
+</div>
 </section>
 
-<section id="contact" class="contact">
-  <h2>Contact Me</h2>
-  <a href="mailto:sadriubesar2@gmail.com">📧 Email Me</a>
-  <a href="tel:+381631739440">📱 Call Me</a>
-  <a href="https://www.paypal.com/donate?business=besarsadriu@gmail.com" target="_blank">💰 Support Me on PayPal</a>
+<section id="contact" aria-label="Contact" style="margin-bottom:40px">
+<h2 class="section-title">Contact Me</h2>
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+<a class="btn" href="mailto:sadriubesar2@gmail.com">📧 Email</a>
+<a class="btn" href="tel:+381631739440">📱 Call</a>
+<a class="btn" href="https://www.paypal.com/donate?business=besarsadriu@gmail.com" target="_blank" rel="noopener noreferrer">💰 Donate</a>
+</div>
 </section>
 
 <script>
-  // Ripple click effect
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      card.classList.add('clicked');
-      setTimeout(() => card.classList.remove('clicked'), 500);
-      const ripple = document.createElement('span');
-      ripple.classList.add('ripple');
-      ripple.style.left = `${e.offsetX}px`;
-      ripple.style.top = `${e.offsetY}px`;
-      card.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 600);
-    });
-  });
+'use strict';
+const $=s=>document.querySelector(s);
 
-  // Scroll animations
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('show'); });
-  }, {threshold:0.2});
-  document.querySelectorAll('.card').forEach(card => observer.observe(card));
+/* BOOT SEQUENCE */
+(function bootSequence(){
+const lines=[
+"[ 0.001] KOS-AI CORE v1.13 initializing...",
+"[ 0.120] Loading cryptographic modules... OK",
+"[ 0.280] Secure enclave: attestation PASS",
+"[ 0.532] Network adapters: eth0 wlan0 ... OK",
+"[ 1.014] Starting telemetry (read-only) ... OK",
+"[ 1.420] Mounting /koscache ... OK",
+"[ 1.792] Loading threat signatures (local)... 423 signatures",
+"[ 2.210] Loading ML models: anomaly-detector, traffic-heuristic ... OK",
+"[ 2.970] Initializing AI assistant 'KosAI' ...",
+"[ 3.390] KosAI: self-test: PASS (0.998)",
+"[ 3.800] Launching terminal services...",
+"",
+"Access: /home/kosai >",
+"System ready. Welcome, Besar."
+];
+const c=$('#boot-lines');let i=0;if(!c)return;const add=()=>{if(i>=lines.length){setTimeout(()=>{$('#boot').style.transition='opacity .6s ease, transform .6s ease';$('#boot').style.opacity='0';$('#boot').style.transform='translateY(-6px)';setTimeout(()=>{$('#boot').remove();startConsole();},700);},700);return;}
+const e=document.createElement('div');e.textContent=lines[i++];c.appendChild(e);c.scrollTop=c.scrollHeight;setTimeout(add,380+Math.random()*220);};add();
+})();
 
-  // PARTICLES BACKGROUND
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = window.innerWidth;
-  let h = canvas.height = window.innerHeight;
-  let particles = [];
-  for(let i=0;i<120;i++){
-    particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.5,dy:(Math.random()-0.5)*0.5});
-  }
-  function animate(){
-    ctx.clearRect(0,0,w,h);
-    particles.forEach(p=>{
-      p.x += p.dx; p.y += p.dy;
-      if(p.x<0||p.x>w)p.dx*=-1;
-      if(p.y<0||p.y>h)p.dy*=-1;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle="rgba(0,255,153,0.6)";
-      ctx.fill();
-    });
-    requestAnimationFrame(animate);
-  }
-  animate();
-  window.addEventListener('resize',()=>{w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight;});
+function startConsole(){
+const out=$('#console-output');if(!out)return;
+const initial=[
+"user@kosai:~$ kosai scan --fast /network",
+"SCANNING 192.168.0.0/24 ...",
+"FOUND: open: 22/tcp ssh (OpenSSH)",
+"FOUND: open: 80/tcp http (nginx)",
+"ALERT: weak-ssh-key on 192.168.0.23 — rotate keys",
+"AI: correlation: suspicious-traffic -> MITM low",
+"user@kosai:~$ kosai analyze --target 192.168.0.23",
+"AI: running behavioural analysis...",
+"AI: heuristic: 0.97 anomaly (suspicious script activity)",
+"LOG: sandbox executed payload -> egress on 443",
+"user@kosai:~$ kosai summarize --report",
+"KOS-AI REPORT: 3 HIGH, 7 MEDIUM, 12 LOW findings. Recommend patching.",
+"user@kosai:~$"
+];let idx=0;
+const push=()=>{if(idx<initial.length){const el=document.createElement('div');el.className='line';el.textContent=initial[idx++];out.appendChild(el);out.scrollTop=out.scrollHeight;setTimeout(push,820+Math.random()*1000);return;}
+setInterval(()=>{const t=new Date().toLocaleTimeString();const msgs=[`${t} • [info] scheduled-scan completed: no critical changes`,`${t} • [notice] threat-feed updated (12 new signatures)`,`${t} • [debug] monitor heartbeat OK`];const el=document.createElement('div');el.className='line';el.textContent=msgs[Math.floor(Math.random()*msgs.length)];out.appendChild(el);out.scrollTop=out.scrollHeight;},3200);
+};push();
+}
+
+/* PARTICLES */
+(function(){const canvas=$('#particles');if(!canvas)return;const ctx=canvas.getContext('2d');let w=canvas.width=window.innerWidth,h=canvas.height=window.innerHeight;const pool=[];for(let i=0;i<90;i++)pool.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.8+0.5,vx:(Math.random()-0.5)*0.25,vy:(Math.random()-0.5)*0.25,a:0.06+Math.random()*0.14});let rafId=0;const loop=()=>{ctx.clearRect(0,0,w,h);for(const p of pool){p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;ctx.beginPath();ctx.fillStyle=`rgba(0,191,255,${p.a})`;ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();}rafId=requestAnimationFrame(loop);};loop();window.addEventListener('resize',()=>{w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;},{passive:true});window._particlesRaf=()=>rafId;})();
+
+/* MATRIX */
+(function(){const canvas=$('#matrix');if(!canvas)return;const ctx=canvas.getContext('2d');let w=canvas.width=window.innerWidth,h=canvas.height=window.innerHeight;const chars="ﾊﾐﾋｳｼﾒｯｻﾘﾃﾒﾐｸﾚｶﾚﾂﾂ".split('');const size=14;let cols=Math.floor(w/size);let drops=Array(cols).fill(1);const draw=()=>{ctx.fillStyle='rgba(0,0,0,0.06)';ctx.fillRect(0,0,w,h);ctx.fillStyle='rgba(0,191,255,0.06)';ctx.font=`${size}px monospace`;for(let i=0;i<cols;i++){const ch=chars[Math.floor(Math.random()*chars.length)];ctx.fillText(ch,i*size,drops[i]*size);if(drops[i]*size>h&&Math.random()>0.975)drops[i]=0;drops[i]+=1;}requestAnimationFrame(draw);};draw();window.addEventListener('resize',()=>{w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;cols=Math.floor(w/size);drops=Array(cols).fill(1);},{passive:true});})();
+
+/* KEYBOARD SIMULATION */
+document.addEventListener('keydown',(ev)=>{const out=$('#console-output');if(!out)return;if(ev.key==='Enter'){const q=document.createElement('div');q.className='line';q.textContent='user@kosai:~$ help';out.appendChild(q);out.scrollTop=out.scrollHeight;setTimeout(()=>{const r=document.createElement('div');r.className='line';r.textContent='help: available commands — scan, analyze, summarize, status';out.appendChild(r);out.scrollTop=out.scrollHeight;},360);}}, {passive:true});
 </script>
-
 </body>
 </html>
